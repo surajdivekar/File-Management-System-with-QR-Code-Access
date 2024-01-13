@@ -4,9 +4,10 @@ require("dotenv").config();
 const secretKey = process.env.JWT_SECRET || "default-secret-key";
 
 function authenticateToken(req, res, next) {
-  const token = req.header("Authorization");
-  if (!token) return res.status(401).json({ message: "Access denied" });
-  // const token = token1.slice(7);
+  const token1 = req.header("Authorization");
+  if (!token1) return res.status(401).json({ message: "Access denied" });
+  console.log(token1);
+  const token = token1.slice(7);
   console.log(token);
   jwt.verify(token, secretKey, (err, user) => {
     if (err) return res.status(403).json({ message: "Invalid token" });

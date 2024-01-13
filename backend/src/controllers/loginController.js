@@ -86,7 +86,7 @@ const jwt = require("jsonwebtoken");
 
 exports.login = async (req, res) => {
   const { email, password } = req.body;
-
+  console.log(email, password);
   try {
     // Convert email to lowercase for case-insensitive comparison
     const lowercasedEmail = email.toLowerCase();
@@ -103,12 +103,12 @@ exports.login = async (req, res) => {
     ) {
       const token = jwt.sign(
         { userId: userResults[0].id, role: "user" },
-        process.env.JWT_SECRET || "your-default-secret-key"
+        process.env.JWT_SECRET || "suraj123"
         // No expiresIn option (or set it to a very high value)
       );
 
       res.json({
-        token,
+        token: `Bearer` + token,
         data: {
           id: userResults[0].user_id,
           email: userResults[0].user_email,
@@ -135,7 +135,7 @@ exports.login = async (req, res) => {
       );
 
       res.json({
-        token,
+        token: `Bearer ` + token,
         data: {
           id: adminResults[0].admin_id,
           email: adminResults[0].admin_email,
